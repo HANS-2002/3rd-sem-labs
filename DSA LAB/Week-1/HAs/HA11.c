@@ -8,18 +8,18 @@ int main(){
     scanf("%d",&size);
     int *a = (int*)malloc(size*sizeof(int));
     printf("Enter the elements of array: ");
-    for(int i=0;i<size;i++)scanf("%d",&a[i]);
+    for(int i=0;i < size;i++)scanf("%d",&a[i]);
 
-    for(int i=0;i<size-1;i++)
-        for(int j=i+1;j<size;j++)
-            if(a[i]%2==0 && a[j]%2){
+    for(int i=0;i < size-1;i++)
+        for(int j=i+1;j < size;j++)
+            if(a[i]%2 == 0 && a[j]%2){
                 int t = a[i];
                 a[i] = a[j];
                 a[j] = t;
             }
 
     printf("Array after ordering: \n");
-    for(int i=0;i<size;i++)printf("%d ",a[i]);
+    for(int i=0;i < size;i++)printf("%d ",a[i]);
     printf("\n");
     return 0;
 }

@@ -8,11 +8,11 @@ int main(){
     scanf("%d %d",&size,&k);
     int *a = (int*)malloc(size*sizeof(int));
     printf("Enter the elements of array: ");
-    for(int i=0;i<size;i++)scanf("%d",&a[i]);
+    for(int i=0;i < size;i++)scanf("%d",&a[i]);
 
-    for(int i=0;i<size;i++){
-        for(int j=0;j<size-1;j++){
-            if(a[j]>a[j+1]){
+    for(int i=0;i < size;i++){
+        for(int j=0;j < size-1;j++){
+            if(a[j] > a[j+1]){
                 int t = a[j+1];
                 a[j+1] = a[j];
                 a[j] = t;

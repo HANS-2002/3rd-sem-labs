@@ -9,7 +9,7 @@ int main(){
     scanf("%d",&size);
     int *a = (int*)malloc(size*sizeof(int));
     printf("Enter the elements of array(only 0 and 1): ");
-    for(int i=0;i<size;i++)scanf("%d",&a[i]);
+    for(int i=0;i < size;i++)scanf("%d",&a[i]);
 
     int l = 0, r = size-1;
     while (l < r)
@@ -25,7 +25,7 @@ int main(){
         }
     }
 
-    for(int i=0;i<size;i++)printf("%d ",a[i]);
+    for(int i=0;i < size;i++)printf("%d ",a[i]);
     printf("\n");
     return 0;
 }
