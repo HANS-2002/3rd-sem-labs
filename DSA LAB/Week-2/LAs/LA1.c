@@ -17,8 +17,6 @@ void getDetails(struct Employee *s)
 {
     printf("Enter the employee details: \n");
     printf("Enter the name: ");
-    //fflush(stdin);
-    // fgets(s.name,50,stdin);
     scanf("%s",s->name);
     printf("Enter the age: ");
     scanf("%d",&s->age);
