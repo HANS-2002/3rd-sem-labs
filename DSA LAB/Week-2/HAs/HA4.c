@@ -1,4 +1,4 @@
-//WAP to display the contents of a linked list in reverse order.
+// WAP to remove duplicates from a linked list of n nodes.
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -6,19 +6,7 @@ struct node {
 	int info;
 	struct node* link;
 };
-struct node* start = NULL;
-
-void reverse()
-{
-	struct node *prev=NULL,*current=start,*next;
-	while(current){
-		next = current->link;
-		current->link = prev;
-		prev = current;
-		current = next;
-	}
-	start = prev;
-}
+struct node *start = NULL;
 
 void traverse(){
 	struct node* temp;
@@ -28,7 +16,6 @@ void traverse(){
 
 	else {
 		temp = start;
-		printf("\nThe list is => ");
 		while (temp != NULL) {
 			printf("%d -> ",temp->info);
 			temp = temp->link;
@@ -56,9 +43,27 @@ void insert(int data){
     }
 }
 
+void removeDup(){
+    struct node *ptr1, *ptr2, *dup;
+    ptr1 = start;
+    while (ptr1 != NULL && ptr1->link != NULL) {
+        ptr2 = ptr1;
+        while (ptr2->link != NULL) {
+            if (ptr1->info == ptr2->link->info) {
+                dup = ptr2->link;
+                ptr2->link = ptr2->link->link;
+                free(dup);
+            }
+            else
+                ptr2 = ptr2->link;
+        }
+        ptr1 = ptr1->link;
+    }
+}
+
 int main()
 {
-	while(1){
+    while(1){
         int num;
         printf("Enter (1)For entering a number \n      (0)For stop entering number\n");
         printf("Enter an option: ");
@@ -71,11 +76,11 @@ int main()
         }
         else printf("Enter a valid option!\n");
     }
-	printf("List before reversal: ");
-	traverse();
-	printf("List after reversal: ");
-	reverse();
-	traverse();
-	free(start);
+    printf("The inital linked list => ");
+    traverse();
+    removeDup();
+    printf("The linked list after removing duplicates => ");
+    traverse();
+    free(start);
 	return 0;
 }

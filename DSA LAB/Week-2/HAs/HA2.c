@@ -1,4 +1,4 @@
-//WAP to display the contents of a linked list in reverse order.
+// WAP to count the number of occurrences of an element in a linked list of n nodes.
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -6,19 +6,7 @@ struct node {
 	int info;
 	struct node* link;
 };
-struct node* start = NULL;
-
-void reverse()
-{
-	struct node *prev=NULL,*current=start,*next;
-	while(current){
-		next = current->link;
-		current->link = prev;
-		prev = current;
-		current = next;
-	}
-	start = prev;
-}
+struct node *start = NULL;
 
 void traverse(){
 	struct node* temp;
@@ -28,7 +16,6 @@ void traverse(){
 
 	else {
 		temp = start;
-		printf("\nThe list is => ");
 		while (temp != NULL) {
 			printf("%d -> ",temp->info);
 			temp = temp->link;
@@ -56,9 +43,21 @@ void insert(int data){
     }
 }
 
+int countOcc(int num){
+    int occ=0;
+    struct node *temp;
+    temp = start;
+    while(temp!=NULL){
+        if(num==temp->info)occ++;
+        temp=temp->link;
+    }
+    return occ;
+}
+
 int main()
 {
-	while(1){
+    int m;
+    while(1){
         int num;
         printf("Enter (1)For entering a number \n      (0)For stop entering number\n");
         printf("Enter an option: ");
@@ -71,11 +70,12 @@ int main()
         }
         else printf("Enter a valid option!\n");
     }
-	printf("List before reversal: ");
-	traverse();
-	printf("List after reversal: ");
-	reverse();
-	traverse();
-	free(start);
+    printf("The linked list => ");
+    traverse();
+    printf("Enter element to count occurances: ");
+    scanf("%d",&m);
+    int occ = countOcc(m);
+    printf("Number of occurances of %d = %d\n",m,occ);
+    free(start);
 	return 0;
 }

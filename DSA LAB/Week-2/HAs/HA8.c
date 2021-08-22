@@ -1,0 +1,1 @@
+// WAP to check whether a singly linked list is a palindrome or not.

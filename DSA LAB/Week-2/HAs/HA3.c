@@ -1,4 +1,4 @@
-//WAP to display the contents of a linked list in reverse order.
+// WAP to reverse the first m elements of a linked list of n nodes.
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -6,19 +6,7 @@ struct node {
 	int info;
 	struct node* link;
 };
-struct node* start = NULL;
-
-void reverse()
-{
-	struct node *prev=NULL,*current=start,*next;
-	while(current){
-		next = current->link;
-		current->link = prev;
-		prev = current;
-		current = next;
-	}
-	start = prev;
-}
+struct node *start = NULL;
 
 void traverse(){
 	struct node* temp;
@@ -28,7 +16,6 @@ void traverse(){
 
 	else {
 		temp = start;
-		printf("\nThe list is => ");
 		while (temp != NULL) {
 			printf("%d -> ",temp->info);
 			temp = temp->link;
@@ -56,9 +43,37 @@ void insert(int data){
     }
 }
 
+void reverseM(int k){
+
+    struct node *temp = start;
+    int count = 1;
+    while (count < k) {
+        temp = temp->link;
+        count++;
+    }
+
+    struct node* joint = temp->link;
+    temp->link = NULL;
+ 
+    struct node *prev = NULL,*current = start,*next;
+    while (current) {
+        next = current->link;
+        current->link = prev;
+        prev = current;
+        current = next;
+    }
+    start = prev;
+    current = start;
+    while (current->link != NULL)
+        current = current->link;
+ 
+    current->link = joint;
+}
+
 int main()
 {
-	while(1){
+    int m;
+    while(1){
         int num;
         printf("Enter (1)For entering a number \n      (0)For stop entering number\n");
         printf("Enter an option: ");
@@ -71,11 +86,13 @@ int main()
         }
         else printf("Enter a valid option!\n");
     }
-	printf("List before reversal: ");
-	traverse();
-	printf("List after reversal: ");
-	reverse();
-	traverse();
-	free(start);
+    printf("The inital linked list => ");
+    traverse();
+    printf("Enter m: ");
+    scanf("%d",&m);
+    reverseM(m);
+    printf("The linked list reversed till m elements => ");
+    traverse();
+    free(start);
 	return 0;
 }

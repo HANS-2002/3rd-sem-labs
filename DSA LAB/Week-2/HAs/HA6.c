@@ -1,4 +1,4 @@
-//WAP to display the contents of a linked list in reverse order.
+// WAP to find number of occurrences of all elements in a linked list.
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -6,19 +6,7 @@ struct node {
 	int info;
 	struct node* link;
 };
-struct node* start = NULL;
-
-void reverse()
-{
-	struct node *prev=NULL,*current=start,*next;
-	while(current){
-		next = current->link;
-		current->link = prev;
-		prev = current;
-		current = next;
-	}
-	start = prev;
-}
+struct node *start = NULL;
 
 void traverse(){
 	struct node* temp;
@@ -28,7 +16,6 @@ void traverse(){
 
 	else {
 		temp = start;
-		printf("\nThe list is => ");
 		while (temp != NULL) {
 			printf("%d -> ",temp->info);
 			temp = temp->link;
@@ -56,9 +43,31 @@ void insert(int data){
     }
 }
 
+void countOcc(){
+    struct node *ptr1, *ptr2, *dup;
+    int count=0;
+    ptr1 = start;
+    while (ptr1 != NULL) {
+        ptr2 = ptr1;
+        int count=1;
+        while (ptr2->link != NULL) {
+            if (ptr1->info == ptr2->link->info) {
+                dup = ptr2->link;
+                ptr2->link = ptr2->link->link;
+                free(dup);
+                count++;
+            }
+            else
+                ptr2 = ptr2->link;
+        }
+        printf("%d is present %d times.\n",ptr1->info,count);
+        ptr1 = ptr1->link;
+    }
+}
+
 int main()
 {
-	while(1){
+    while(1){
         int num;
         printf("Enter (1)For entering a number \n      (0)For stop entering number\n");
         printf("Enter an option: ");
@@ -71,11 +80,9 @@ int main()
         }
         else printf("Enter a valid option!\n");
     }
-	printf("List before reversal: ");
-	traverse();
-	printf("List after reversal: ");
-	reverse();
-	traverse();
-	free(start);
+    printf("The inital linked list => ");
+    traverse();
+    countOcc();
+    free(start);
 	return 0;
 }
