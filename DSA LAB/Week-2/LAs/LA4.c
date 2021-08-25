@@ -56,6 +56,18 @@ void insert(int data){
     }
 }
 
+void freeList()
+{
+    struct node *temp = start;
+    start = start->link;
+    while (start != NULL)
+    {
+        free(temp);
+        temp = start;
+        start = start->link;
+    }
+}
+
 int main()
 {
 	while(1){
@@ -76,6 +88,6 @@ int main()
 	printf("List after reversal: ");
 	reverse();
 	traverse();
-	free(start);
+	freeList();
 	return 0;
 }

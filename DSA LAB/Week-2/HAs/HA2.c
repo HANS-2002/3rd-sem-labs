@@ -54,6 +54,18 @@ int countOcc(int num){
     return occ;
 }
 
+void freeList()
+{
+    struct node *temp = start;
+    start = start->link;
+    while (start != NULL)
+    {
+        free(temp);
+        temp = start;
+        start = start->link;
+    }
+}
+
 int main()
 {
     int m;
@@ -76,6 +88,6 @@ int main()
     scanf("%d",&m);
     int occ = countOcc(m);
     printf("Number of occurances of %d = %d\n",m,occ);
-    free(start);
+    freeList();
 	return 0;
 }

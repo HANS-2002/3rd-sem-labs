@@ -90,6 +90,18 @@ int delete(int m){
     return pos;
 }
 
+void freeList()
+{
+    struct node *temp = start;
+    start = start->link;
+    while (start != NULL)
+    {
+        free(temp);
+        temp = start;
+        start = start->link;
+    }
+}
+
 int main()
 {
     int m;
@@ -115,6 +127,6 @@ int main()
         printf("The linked list after deletion => ");
         traverse();
     }
-    free(start);
+    freeList();
 	return 0;
 }

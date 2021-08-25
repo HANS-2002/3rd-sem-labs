@@ -65,6 +65,18 @@ void countOcc(){
     }
 }
 
+void freeList()
+{
+    struct node *temp = start;
+    start = start->link;
+    while (start != NULL)
+    {
+        free(temp);
+        temp = start;
+        start = start->link;
+    }
+}
+
 int main()
 {
     while(1){
@@ -83,6 +95,6 @@ int main()
     printf("The inital linked list => ");
     traverse();
     countOcc();
-    free(start);
+    freeList();
 	return 0;
 }

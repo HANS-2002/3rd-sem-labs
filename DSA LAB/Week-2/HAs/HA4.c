@@ -61,6 +61,18 @@ void removeDup(){
     }
 }
 
+void freeList()
+{
+    struct node *temp = start;
+    start = start->link;
+    while (start != NULL)
+    {
+        free(temp);
+        temp = start;
+        start = start->link;
+    }
+}
+
 int main()
 {
     while(1){
@@ -81,6 +93,6 @@ int main()
     removeDup();
     printf("The linked list after removing duplicates => ");
     traverse();
-    free(start);
+    freeList();
 	return 0;
 }

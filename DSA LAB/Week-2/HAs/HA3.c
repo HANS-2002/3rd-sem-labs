@@ -70,6 +70,18 @@ void reverseM(int k){
     current->link = joint;
 }
 
+void freeList()
+{
+    struct node *temp = start;
+    start = start->link;
+    while (start != NULL)
+    {
+        free(temp);
+        temp = start;
+        start = start->link;
+    }
+}
+
 int main()
 {
     int m;
@@ -93,6 +105,6 @@ int main()
     reverseM(m);
     printf("The linked list reversed till m elements => ");
     traverse();
-    free(start);
+    freeList();
 	return 0;
 }

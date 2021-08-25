@@ -181,6 +181,18 @@ int countNodes(){
     return count;
 }
 
+void freeList()
+{
+    struct node *temp = start;
+    start = start->link;
+    while (start != NULL)
+    {
+        free(temp);
+        temp = start;
+        start = start->link;
+    }
+}
+
 int main()
 {
 	int choice;
@@ -252,7 +264,7 @@ int main()
 			isEmpty()?printf("\nList is empty!\n"):printf("\nList is not empty!\n");
 			break;
 		case 12:
-			free(start);
+			freeList();
 			return 0;
 			break;
 		default:

@@ -64,6 +64,18 @@ void insertSorted(int data){
     }
 }
 
+void freeList()
+{
+    struct node *temp = start;
+    start = start->link;
+    while (start != NULL)
+    {
+        free(temp);
+        temp = start;
+        start = start->link;
+    }
+}
+
 int main()
 {
     int m;
@@ -87,6 +99,6 @@ int main()
     insertSorted(m);
     printf("The linked list after inserting element => ");
     traverse();
-    free(start);
+    freeList();
 	return 0;
 }
