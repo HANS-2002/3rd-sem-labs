@@ -44,7 +44,6 @@ void insertAtFront(){
 	printf("\nEnter number to be inserted : ");
 	scanf("%d", &data);
 	temp->info = data;
-
 	temp->link = start;
 	start = temp;
 }

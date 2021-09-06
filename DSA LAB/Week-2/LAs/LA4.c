@@ -85,8 +85,8 @@ int main()
     }
 	printf("List before reversal: ");
 	traverse();
-	printf("List after reversal: ");
 	reverse();
+    printf("List after reversal: ");
 	traverse();
 	freeList();
 	return 0;
