@@ -1,5 +1,4 @@
-// WAP to create a double linked list of n nodes and display the linked list by using suitable 
-// user defined functions for create and display operations.
+// WAP to print the middle of a double linked list.
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -31,6 +30,26 @@ void display(struct node* node)
     printf(" NULL\n");
 }
 
+int countNodes(struct node* node){
+    int count=0;
+    struct node* temp = node;
+    while(temp!=NULL){
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
+void printMiddle(struct node* node){
+    int count=countNodes(node);
+    struct node* temp = node;
+    count/=2;
+    while(count--){
+        temp = temp->next;
+    }
+    printf("\nThe middle element = %d\n",temp->data);
+}
+
 int main(){
     struct node* head = NULL;
     insert_at_front(&head, 6);
@@ -40,6 +59,7 @@ int main(){
     insert_at_front(&head, 8);
     printf("\nCreated DLL is: ");
     display(head);
+    printMiddle(head);
     printf("\n");
     return 0;
 }
