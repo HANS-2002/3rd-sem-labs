@@ -1,9 +1,4 @@
 //WAP to convert an infix expression into its equivalent prefix notation.
-
-
-//!!INCOMPLETE HE VRO!!
-
-
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
@@ -11,15 +6,6 @@
 #define MAX 20
 char stack[20], infix[20], prefix[20];
 int top = -1;
-void strrev(char a[]){
-    int size=0;
-    for(int i=0;a[i]!='\0';i++)size++;
-    for(int i=0;i<size/2;i++){
-        char t = a[i];
-        a[i] = a[size-i-1];
-        a[size-i-1] = t;
-    }
-}
 void push(int pos)
 {
     if (top == MAX - 1)
