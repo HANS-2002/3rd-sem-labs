@@ -50,28 +50,28 @@ int precedence(char alpha)
 void infix_to_prefix()
 {
     int i = 0, j = 0;
-    strrev(infix); 
+    strrev(infix);
     while (infix[i] != '\0')
     {
-       
+
         if (infix[i] >= 'a' && infix[i] <= 'z')
         {
             prefix[j] = infix[i];
             j++;
             i++;
         }
-        
+
         else if (infix[i] == ')' || infix[i] == '}' || infix[i] == ']')
         {
             push(i);
             i++;
         }
-        
-        else if (infix[i] == '(' || infix[i] == '{' || infix[i] == '[') 
+
+        else if (infix[i] == '(' || infix[i] == '{' || infix[i] == '[')
         {
             if (infix[i] == '(')
             {
-                while (stack[top] != ')') 
+                while (stack[top] != ')')
                 {
                     prefix[j] = pop();
                     j++;
@@ -81,7 +81,7 @@ void infix_to_prefix()
             }
             else if (infix[i] == '[')
             {
-                while (stack[top] != ']') 
+                while (stack[top] != ']')
                 {
                     prefix[j] = pop();
                     j++;
@@ -91,7 +91,7 @@ void infix_to_prefix()
             }
             else if (infix[i] == '{')
             {
-                while (stack[top] != '}') 
+                while (stack[top] != '}')
                 {
                     prefix[j] = pop();
                     j++;
@@ -102,21 +102,21 @@ void infix_to_prefix()
         }
         else
         {
-            
+
             if (top == -1)
             {
                 push(i);
                 i++;
             }
-            
+
             else if (precedence(infix[i]) < precedence(stack[top]))
             {
-                prefix[j] = pop(); 
+                prefix[j] = pop();
                 j++;
-                
+
                 while (precedence(stack[top]) > precedence(infix[i]))
                 {
-                    prefix[j] = pop(); 
+                    prefix[j] = pop();
                     j++;
                     if (top < 0)
                     {
@@ -126,28 +126,26 @@ void infix_to_prefix()
                 push(i);
                 i++;
             }
-            
+
             else if (precedence(infix[i]) >= precedence(stack[top]))
             {
-                push(i); 
+                push(i);
                 i++;
             }
         }
     }
-    
+
     while (top != -1)
     {
         prefix[j] = pop();
         j++;
     }
-    
+
     strrev(prefix);
     prefix[j] = '\0';
     printf("EQUIVALENT PREFIX NOTATION : %s\n", prefix);
 }
- 
- 
- 
+
 int main()
 {
     printf("\nINPUT THE INFIX EXPRESSION : ");
