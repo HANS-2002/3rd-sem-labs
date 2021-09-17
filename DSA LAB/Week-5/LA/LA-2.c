@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int size=0;
+
 struct Node{
 	int data;
 	struct Node* link;
@@ -16,6 +18,7 @@ void push(int data){
 	temp->link = top;
 	top = temp;
     printf("\n%d pushed succesfully!\n",data);
+    size++;
 }
 
 int isEmpty(){
@@ -34,6 +37,7 @@ void pop(){
     temp->link = NULL;
     free(temp);
     printf("\n%d popped succesfully!\n",a);
+    size--;
 }
 
 void display()
@@ -62,7 +66,8 @@ int main()
                 "2)Pop a number from stack.\n"
                 "3)To display the stack.\n"
                 "4)To check if stack is empty.\n"
-                "5)Exit.\n"
+                "5)Stack count.\n"
+                "6)Exit.\n"
         );
         printf("Enter a choice: ");
         scanf("%d",&choice);
@@ -87,6 +92,9 @@ int main()
                 else printf("\nStack is not Empty!\n");
                 break;
             case 5:
+                printf("\nStack count = %d\n",size);
+                break;
+            case 6:
                 return 0;
                 break;
             default:
