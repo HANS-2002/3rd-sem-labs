@@ -2,6 +2,7 @@
     "files.associations": {
         "iostream": "cpp",
         "stdlib.h": "c",
-        "string": "c"
+        "string": "c",
+        "complex": "cpp"
     }
 }
