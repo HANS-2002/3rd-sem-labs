@@ -3,6 +3,13 @@
         "iostream": "cpp",
         "stdlib.h": "c",
         "string": "c",
-        "complex": "cpp"
+        "complex": "cpp",
+        "stdio.h": "c",
+        "array": "c",
+        "deque": "c",
+        "forward_list": "c",
+        "list": "c",
+        "vector": "c",
+        "string_view": "c"
     }
 }
