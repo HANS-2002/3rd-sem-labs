@@ -20,6 +20,8 @@ typedef struct BST
     struct BST *left, *right;
 } BST;
 
+int max_level= 1-__INT16_MAX__;
+
 void insertBST(BST **root, int data)
 {
     BST *newNode = (BST *)malloc(sizeof(BST));
@@ -147,20 +149,16 @@ void deleteTree(BST **root)
 
 int countLeaf(BST *root)
 {
-    if (root = NULL)
+    if (root == NULL)
         return 0;
     if (root->left == NULL && root->right == NULL)
         return 1;
-    else
-        return countLeaf(root->left) + countLeaf(root->right);
+    return countLeaf(root->left) + countLeaf(root->right);
 }
 
 int countNodes(BST *root){
-    if(root==NULL)return 0;
-    int res=0;
-    if(root->left && root->right)res++;
-    res += countNodes(root->left)+countNodes(root->right);
-    return res;
+    if(!root)return 0;
+    return countNodes(root->left) + countNodes(root->right) + 1; 
 }
 
 int countNonLeafNodes(BST *root){
@@ -168,7 +166,35 @@ int countNonLeafNodes(BST *root){
 }
 
 int sumOfNodes(BST *root){
-    return 0;
+    if(!root)return 0;
+    return root->data + sumOfNodes(root->right) + sumOfNodes(root->left);
+}
+
+int maxDepth(BST *root){
+    if(!root)return 0;
+    else{
+        int ldep = maxDepth(root->left);
+        int rdep = maxDepth(root->right);
+        if(ldep>rdep)return ldep+1;
+        else return rdep+1;
+    }
+}
+
+void printOfNodesAtMaxDepth(BST *root,int level)
+{
+    //NOT WORKING!
+    if(root == NULL)
+        return;
+    if(level > max_level)
+    {
+        max_level = level;
+    }
+    else if(level == max_level)
+    {
+        printf("%d ",root->data);
+    }
+    printOfNodesAtMaxDepth(root -> left, level + 1);
+    printOfNodesAtMaxDepth(root -> right, level + 1); 
 }
 
 int main()
@@ -269,8 +295,12 @@ int main()
             printf("\nSum of data of all nodes = %d\n",sumOfNodes(root));
             break;
         case 13:
+            printf("\nDepth of BST = %d\n",maxDepth(root));
             break;
         case 14:
+            printf("\nNodes at max depth -> ");
+            printOfNodesAtMaxDepth(root,0);
+            printf("\n");
             break;
         case 15:
             break;

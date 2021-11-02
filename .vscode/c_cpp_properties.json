@@ -5,10 +5,11 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/include/x86_64-linux-gnu",
-                "/usr/include/x86_64-linux-gnu/c++/9"
+                "/usr/include/x86_64-linux-gnu/c++/9",
+                "/usr/include/c++/9"
             ],
             "defines": [],
-            "compilerPath": "/bin/gcc",
+            "compilerPath": "/usr/bin/gcc",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64"

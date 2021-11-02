@@ -10,6 +10,7 @@
         "forward_list": "c",
         "list": "c",
         "vector": "c",
-        "string_view": "c"
+        "string_view": "c",
+        "atomic": "cpp"
     }
 }
