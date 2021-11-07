@@ -6,21 +6,18 @@
 // e) To print depth of the tree.
 // f) To find nodes which are at maximum depth in the tree?
 // g) To print all the elements of kth level in single line.
-// h) To find the common ancestor and print the paths.
+// h) To find lowest the common ancestor.
 // i) To check whether a tree is a binary search tree or not.
-
-//INCOMPLETE(DO NOT COPY)
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 typedef struct BST
 {
     int data;
     struct BST *left, *right;
 } BST;
-
-int max_level= 1-__INT16_MAX__;
 
 void insertBST(BST **root, int data)
 {
@@ -156,45 +153,86 @@ int countLeaf(BST *root)
     return countLeaf(root->left) + countLeaf(root->right);
 }
 
-int countNodes(BST *root){
-    if(!root)return 0;
-    return countNodes(root->left) + countNodes(root->right) + 1; 
+int countNodes(BST *root)
+{
+    if (!root)
+        return 0;
+    return countNodes(root->left) + countNodes(root->right) + 1;
 }
 
-int countNonLeafNodes(BST *root){
-    return countNodes(root)-countLeaf(root);
+int countNonLeafNodes(BST *root)
+{
+    return countNodes(root) - countLeaf(root);
 }
 
-int sumOfNodes(BST *root){
-    if(!root)return 0;
+int sumOfNodes(BST *root)
+{
+    if (!root)
+        return 0;
     return root->data + sumOfNodes(root->right) + sumOfNodes(root->left);
 }
 
-int maxDepth(BST *root){
-    if(!root)return 0;
-    else{
+int maxDepth(BST *root)
+{
+    if (!root)
+        return 0;
+    else
+    {
         int ldep = maxDepth(root->left);
         int rdep = maxDepth(root->right);
-        if(ldep>rdep)return ldep+1;
-        else return rdep+1;
+        if (ldep > rdep)
+            return ldep + 1;
+        else
+            return rdep + 1;
     }
 }
 
-void printOfNodesAtMaxDepth(BST *root,int level)
+void printCurrentLevel(BST *root, int level)
 {
-    //NOT WORKING!
-    if(root == NULL)
+    if (root == NULL)
         return;
-    if(level > max_level)
+    if (level == 1)
+        printf("%d ", root->data);
+    else if (level > 1)
     {
-        max_level = level;
+        printCurrentLevel(root->left, level - 1);
+        printCurrentLevel(root->right, level - 1);
     }
-    else if(level == max_level)
-    {
-        printf("%d ",root->data);
-    }
-    printOfNodesAtMaxDepth(root -> left, level + 1);
-    printOfNodesAtMaxDepth(root -> right, level + 1); 
+}
+
+void printLevelOrder(BST *root)
+{
+    int h = maxDepth(root);
+    int i;
+    for (i = 1; i <= h; i++)
+        printCurrentLevel(root, i);
+}
+
+int isBSTUtil(BST *root, int min, int max)
+{
+    if (root == NULL)
+        return 1;
+
+    if (root->data < min || root->data > max)
+        return 0;
+
+    return isBSTUtil(root->left, min, root->data - 1) && isBSTUtil(root->right, root->data + 1, max);
+}
+
+BST *findLCA(BST *root, int n1, int n2)
+{
+    if (root == NULL)
+        return NULL;
+    if (root->data == n1 || root->data == n2)
+        return root;
+
+    BST *left_lca = findLCA(root->left, n1, n2);
+    BST *right_lca = findLCA(root->right, n1, n2);
+
+    if (left_lca && right_lca)
+        return root;
+
+    return (left_lca != NULL) ? left_lca : right_lca;
 }
 
 int main()
@@ -222,7 +260,7 @@ int main()
                "13. To print depth of the tree.\n"
                "14. To find nodes which are at maximum depth in the tree?\n"
                "15. To print all the elements of kth level in single line.\n"
-               "16. To find the common ancestor and print the paths.\n"
+               "16. To find the lowest common ancestor.\n"
                "17. To check whether a tree is a binary search tree or not.\n"
                "----------------------------------------\n"
                "Enter your choice: ");
@@ -283,30 +321,46 @@ int main()
             deleteTree(&root);
             break;
         case 9:
-            printf("\nNumber of leaf nodes = %d\n",countLeaf(root));
+            printf("\nNumber of leaf nodes = %d\n", countLeaf(root));
             break;
         case 10:
-            printf("\nNumber of non-leaf nodes = %d\n",countNonLeafNodes(root));
+            printf("\nNumber of non-leaf nodes = %d\n", countNonLeafNodes(root));
             break;
         case 11:
-            printf("\nNumber of nodes = %d\n",countNodes(root));
+            printf("\nNumber of nodes = %d\n", countNodes(root));
             break;
         case 12:
-            printf("\nSum of data of all nodes = %d\n",sumOfNodes(root));
+            printf("\nSum of data of all nodes = %d\n", sumOfNodes(root));
             break;
         case 13:
-            printf("\nDepth of BST = %d\n",maxDepth(root));
+            printf("\nDepth of BST = %d\n", maxDepth(root));
             break;
         case 14:
             printf("\nNodes at max depth -> ");
-            printOfNodesAtMaxDepth(root,0);
+            printCurrentLevel(root, maxDepth(root));
             printf("\n");
             break;
         case 15:
-            break;
+        {
+            int k;
+            printf("Enter k(starts from 1): ");
+            scanf("%d", &k);
+            printf("\nNodes at k = %d depth -> ", k);
+            printCurrentLevel(root, k);
+            printf("\n");
+        }
+        break;
         case 16:
-            break;
+        {
+            int n1, n2;
+            printf("Enter 2 node values to find common ancestor: ");
+            scanf("%d %d", &n1, &n2);
+            BST *temp = findLCA(root, n1, n2);
+            temp == NULL ? printf("\nAtleast one node doesn't exist in the tree.\n") : printf("\nThe common ancestor -> %d\n", temp->data);
+        }
+        break;
         case 17:
+            isBSTUtil(root, INT_MIN, INT_MAX) ? printf("\nThe tree is a BST!\n") : printf("\nThe tree is not a BST!\n");
             break;
         default:
             printf("\nEnter a valid choice!\n");
