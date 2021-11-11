@@ -11,6 +11,7 @@
         "list": "c",
         "vector": "c",
         "string_view": "c",
-        "atomic": "cpp"
+        "atomic": "cpp",
+        "iosfwd": "cpp"
     }
 }
