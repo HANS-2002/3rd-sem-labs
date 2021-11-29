@@ -1,7 +1,13 @@
 // Modify the above program to include a menu driven program and add options for the depth-first traversal and breadth-first traversal.
 #include <stdio.h>
+#include <stdlib.h>
 
 int vertices = 0, edges = 0;
+struct queue
+{
+    int front, rear;
+    int data[100];
+};
 
 void DFT(int start, int visited[], int Adj[][vertices])
 {
@@ -20,36 +26,40 @@ void _DFT(int start, int Adj[][vertices])
     DFT(start, visited, Adj);
 }
 
-void BFT(int curr, int N, int vis[], int dp[], int v[], int Adj[][vertices])
+int Isempty(struct queue q)
 {
-    int i = 1;
-    while (curr <= N)
-    {
-        int node = v[curr - 1];
-        printf("%d ", node);
-        for (int i = 0; i < N; i++)
-        {
-            int next = Adj[node][i];
-            if ((!vis[next]) && (dp[next] < dp[node] + 1))
-            {
-                v[i++] = next;
-                dp[next] = dp[node] + 1;
-                vis[next] = 1;
-            }
-        }
-        curr += 1;
-    }
+    if (q.front == -1 || q.front > q.rear)
+        return 1;
+    return 0;
 }
 
-void _BFT(int Adj[][vertices], int N, int source)
+void BFT(int start, int nodes, int Adj[][vertices])
 {
-    int visited[vertices], dp[vertices], v[vertices + 1];
-    for (int i = 0; i < vertices; i++)
-        visited[i] = dp[i] = 0;
-    v[0] = source;
-    dp[0] = 0;
-    visited[0] = 1;
-    BFT(1, N, visited, dp, v, Adj);
+    int *visited = (int *)malloc(sizeof(int) * nodes);
+    for (int i = 0; i < nodes; i++)
+        visited[i] = 0;
+    struct queue q;
+    q.front = q.rear = 0;
+    q.data[q.rear] = start;
+
+    visited[start] = 1;
+
+    int vis;
+    while (!Isempty(q))
+    {
+        vis = q.data[q.front];
+        printf("%d ", vis);
+        q.front++;
+        for (int i = 0; i < nodes; i++)
+        {
+            if (Adj[vis][i] == 1 && (!visited[i]))
+            {
+                q.data[++q.rear] = i;
+                visited[i] = 1;
+            }
+        }
+    }
+    printf("\n");
 }
 
 void addEdge(int Adj[][vertices], int m, int n)
@@ -70,7 +80,6 @@ void printAdjMatrix(int Adj[][vertices])
 
 int main()
 {
-    // { { 1, 2 }, { 2, 3 }, { 4, 5 }, { 1, 5 } }
     int choice = 1;
     printf("Enter number of vertices of undirected graph: ");
     scanf("%d", &vertices);
@@ -118,7 +127,7 @@ int main()
             int k;
             printf("Enter node to start BFT: ");
             scanf("%d", &k);
-            _BFT(Adj, vertices, k);
+            BFT(k, vertices, Adj);
         }
         break;
         default:

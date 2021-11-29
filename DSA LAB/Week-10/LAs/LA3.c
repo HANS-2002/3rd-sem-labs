@@ -1,4 +1,4 @@
-// WAP to create a directed graph using adjacency list method.
+// WAP to create a directed graph using adjacency matrix method.
 #include <stdio.h>
 
 int vertices = 0, edges = 0;
@@ -21,7 +21,6 @@ void printAdjMatrix(int Adj[][vertices])
 
 int main()
 {
-    // { { 1, 2 }, { 2, 3 }, { 4, 5 }, { 1, 5 } }
     int choice = 1;
     printf("Enter number of vertices of directed graph: ");
     scanf("%d", &vertices);

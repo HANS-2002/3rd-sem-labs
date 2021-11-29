@@ -5,8 +5,8 @@
 
 using namespace std;
 
-template <class var, int size>
-void bubbleSort(var a[])
+template <class var>
+void bubbleSort(var a[], int size)
 {
       for (int i = 0; i < size - 1; i++)
             for (int j = 0; j < size - i - 1; j++)
@@ -27,7 +27,7 @@ int main()
       for (int i = 0; i < sizea; i++)
             cout << a[i] << " ";
 
-      bubbleSort<int, sizea>(a);
+      bubbleSort(a, sizea);
 
       cout << "\nThe sorted array is: ";
       for (int i = 0; i < sizea; i++)

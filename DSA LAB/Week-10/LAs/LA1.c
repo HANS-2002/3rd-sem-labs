@@ -21,7 +21,6 @@ void printAdjMatrix(int Adj[][vertices])
 
 int main()
 {
-    // { { 1, 2 }, { 2, 3 }, { 4, 5 }, { 1, 5 } }
     int choice = 1;
     printf("Enter number of vertices of undirected graph: ");
     scanf("%d", &vertices);

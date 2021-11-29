@@ -256,7 +256,7 @@ int main()
 				int s;
 				printf("Enter element to search for: ");
 				scanf("%d",&s);
-				printf("\nElement found at index(-1 if not found) = %d\n",search(s));
+				printf("\nElement found at position(-1 if not found) = %d\n",search(s));
 			}
 			break;
 		case 11:
