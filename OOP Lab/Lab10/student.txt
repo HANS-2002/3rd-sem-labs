@@ -1,0 +1,6 @@
+Roll: 2
+Name: hans
+Gender: M
+Physics -> 97
+Chemistry -> 96
+Math -> 95
